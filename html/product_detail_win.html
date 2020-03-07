@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
+    <style>
+        footer{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: #f0f0f0 .5px solid;
+        }
+        .footer-item {
+            display: inline-block;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            text-align: center;
+            width: 32%;
+            float: left;
+            border-right: #f0f0f0 .5px solid;
+            font-size: .7rem;
+        }
+        .aui-iconfont{
+            font-size: 1rem;
+            width: 12%;
+        }
+    </style>
+</head>
+
+<body>
+<footer >
+    <div class="footer-item aui-iconfont aui-icon-comment"></div>
+    <div class="footer-item aui-iconfont aui-icon-cart" tapmode onclick="fnOpenCart()">
+        <div class="aui-badge" v-text="cartNum"></div>
+    </div>
+    <div class="footer-item aui-iconfont aui-icon-star"></div>
+    <div class="footer-item" style="color: rgba(0,0,0,0.6);">立即购买</div>
+    <div class="footer-item" style="background: #b01b29;color: white;" @click="fnAddItem()">加入购物车</div>
+</footer>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    var vm;
+    apiready = function() {
+        $app.openFrame('product_detail_frame',null,'footer',{
+            footerH : $api.offset($api.dom('footer')).h
+        });
+        initVue();
+        initEvent();
+    };
+
+    function fnOpenCart() {
+        $app.openWin('cart_win');
+    }
+
+    function initEvent() {
+        api.addEventListener({
+            name: 'add_cart'
+        }, function (ret, err) {
+            vm.cartNum = $api.getStorage('cart_data').length;
+        });
+    }
+
+    function initVue() {
+        vm = new Vue({
+            el: 'footer',
+            data: {
+                cartNum: $api.getStorage('cart_data').length
+            },
+            methods: {
+                fnAddItem: function () {
+                    $logger.print('点击事件')
+                    api.execScript({
+                        frameName: 'product_select_item_frame',
+                        script: 'fnSelectItem();'
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+
+</html>

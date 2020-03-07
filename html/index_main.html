@@ -1,0 +1,431 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style type="text/css">
+        #home-header.aui-bar {
+            background-image: url(../image/home_navbar_bg.png);
+            background-size: 100%;
+            background-repeat: repeat-y;
+            display: flex;
+        }
+
+        #category-header.aui-bar {
+            background-color: #fafafa;
+        }
+
+        #home-header .search-content {
+            background-color: #fff;
+        }
+
+        #category-header .search-content {
+            background-color: #ececec;
+        }
+
+        .aui-bar-nav {
+            line-height: 1;
+        }
+
+        .block-scanner {
+            position: relative;
+            min-height: 2.25rem;
+            flex: 1;
+        }
+
+        .icon-message, .icon-scanner {
+            background-size: contain;
+            width: 1rem;
+            height: 1rem;
+            position: absolute;
+        }
+
+        .icon-scanner {
+            background-image: url(../image/home_scan_icon.png);
+            top: 6px;
+            left: .75rem;
+        }
+
+        .icon-message {
+            background-image: url(../image/home_message_icon.png);
+            top: 6px;
+            right: .75rem;
+        }
+
+        .text-scanner, .text-message {
+            font-size: .5rem;
+            position: absolute;
+            width: 100%;
+            bottom: 5px;
+            line-height: 1;
+        }
+
+        .text-scanner {
+            left: 3px;
+        }
+
+        .text-message {
+            right: 1px;
+        }
+
+        #home-search {
+            display: flex;
+            flex: 5;
+            padding: 8px 5px;
+        }
+
+        #category-search {
+            display: flex;
+            padding: 8px .75rem;
+        }
+
+        #icon {
+            flex: 1;
+            background-image: url(../image/icon_enterprise.gif);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 65%;
+        }
+
+        .block-message {
+            position: relative;
+            flex: 1;
+        }
+
+        .aui-dot {
+            background: white;
+        }
+
+        .search-content {
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .search-content .aui-icon-search, .search-content .search-text {
+            line-height: 1.4rem;
+            font-size: .7rem;
+            color: #666;
+            vertical-align: sub;
+        }
+
+        .search-content .aui-icon-search:before {
+            line-height: 1.4rem;
+        }
+
+        #shopping-cart-header {
+            line-height: 2.25rem;
+            text-align: left;
+            background-color: #fefefe;
+        }
+
+        #shopping-cart-header {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .header-title {
+            display: inline-block;
+            width: auto;
+            font-size: .9rem;
+            margin-left: .75rem;
+        }
+
+        .header-right {
+            float: right;
+            font-size: .8rem;
+            margin-right: .75rem;
+        }
+
+        .header-right span {
+            line-height: 1;
+            margin-right: .5rem;
+        }
+
+        .icon-header-share {
+            width: 1.5rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+<header id="home-header" class="aui-bar aui-bar-nav selected">
+    <div class="block-scanner">
+        <a class="icon-scanner"></a>
+        <div class="text-scanner">扫一扫</div>
+    </div>
+    <div id="home-search">
+        <div class="search-content">
+            <a class="aui-iconfont aui-icon-search"></a><a class="search-text aui-margin-l-10">谷风一木3层软抽面巾纸</a>
+        </div>
+    </div>
+    <div id="icon"></div>
+    <div class="block-message">
+        <a class="icon-message"></a>
+        <a class="aui-dot"></a>
+        <div class="text-message">消息</div>
+    </div>
+</header>
+<header id="category-header" class="aui-bar aui-bar-nav aui-border-b aui-hide">
+    <div id="category-search">
+        <div class="search-content">
+            <a class="aui-iconfont aui-icon-search"></a><a class="search-text aui-margin-l-10">谷风一木3层软抽面巾纸</a>
+        </div>
+    </div>
+</header>
+<header id="shopping-cart-header" class="aui-bar aui-bar-nav aui-border-b aui-hide">
+    <div class="header-title">购物车</div>
+    <div class="header-right">
+        <span style="color: #DD1A21;">领券</span><span>编辑</span>
+        <img class="icon-header-share" src="../image/all_share_nor_ic.png" alt="">
+    </div>
+</header>
+<header></header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    // var homeHeader = $api.dom('#home-header');
+    var categoryHeader = $api.dom('#category-header');
+    var cartHeader = $api.dom('#shopping-cart-header');
+    var homeHeaderH, categoryHeaderH, cartHeaderH;
+    var currentIndex;
+    var NVTabBar;
+    apiready = function () {
+        initView();
+        initEvent();
+    };
+
+    function initView() {
+        homeHeaderH = $app.fixStatusBar('#home-header');
+        $api.fixStatusBar(categoryHeader);
+        $api.fixStatusBar(cartHeader);
+        api.setStatusBarStyle({style: 'light', animated: false, color: 'rgba(0,0,0,0)'});
+        fnOpenHomeFrame('index_home_frame', homeHeaderH);
+        initTabbar();
+    }
+
+    function initEvent() {
+        api.addEventListener({
+            name: 'loginSuccess'
+        }, function (ret, err) {
+            NVTabBar.setSelect({
+                index: 3
+            });
+            fnOpenHomeFrame('index_person_frame', 0);
+        });
+    }
+
+    function initTabbar() {
+        NVTabBar = api.require('NVTabBar');
+        NVTabBar.open({
+            styles: {
+                bg: '#F8F9FA',
+                h: 50,
+                dividingLine: {
+                    width: 0.5,
+                    color: '#d3d4d5'
+                },
+                badge: {
+                    bgColor: '#f00',
+                    numColor: '#fff',
+                    size: 6.0,
+                    centerX: 40,
+                    centerY: 6
+                }
+            },
+            items: [{
+                w: api.winWidth / 4,
+                bg: {
+                    marginB: -0.5,
+                    image: '#F8F9FA'
+                },
+                iconRect: {
+                    w: 22,
+                    h: 22,
+                },
+                icon: {
+                    normal: 'widget://image/mainpage_home_nor_ic.png',
+                    highlight: 'widget://image/mainpage_home_pressed_ic.png',
+                    selected: 'widget://image/mainpage_home_pressed_ic.png'
+                },
+                title: {
+                    text: '首页',
+                    size: 12.0,
+                    normal: '#696969',
+                    selected: '#da1920',
+                    marginB: 2
+                }
+            }, {
+                w: api.winWidth / 4,
+                bg: {
+                    marginB: -0.5,
+                    image: '#F8F9FA'
+                },
+                iconRect: {
+                    w: 22,
+                    h: 22,
+                },
+                icon: {
+                    normal: 'widget://image/mainpage_category_nor_ic.png',
+                    highlight: 'widget://image/mainpage_category_pressed_ic.png',
+                    selected: 'widget://image/mainpage_category_pressed_ic.png'
+                },
+                title: {
+                    text: '分类',
+                    size: 12.0,
+                    normal: '#696969',
+                    selected: '#da1920',
+                    marginB: 2
+                }
+            }, {
+                w: api.winWidth / 4,
+                bg: {
+                    marginB: -0.5,
+                    image: '#F8F9FA'
+                },
+                iconRect: {
+                    w: 22,
+                    h: 22,
+                },
+                icon: {
+                    normal: 'widget://image/all_shopping_cart_nor_ic.png',
+                    highlight: 'widget://image/all_shopping_cart_pressed_ic.png',
+                    selected: 'widget://image/all_shopping_cart_pressed_ic.png'
+                },
+                title: {
+                    text: '购物车',
+                    size: 12.0,
+                    normal: '#696969',
+                    selected: '#da1920',
+                    marginB: 2
+                }
+            }, {
+                w: api.winWidth / 4,
+                bg: {
+                    marginB: -0.5,
+                    image: '#F8F9FA'
+                },
+                iconRect: {
+                    w: 22,
+                    h: 22,
+                },
+                icon: {
+                    normal: 'widget://image/mainpage_person_nor_ic.png',
+                    highlight: 'widget://image/mainpage_person_pressed_ic.png',
+                    selected: 'widget://image/mainpage_person_pressed_ic.png'
+                },
+                title: {
+                    text: '个人',
+                    size: 12.0,
+                    normal: '#696969',
+                    selected: '#da1920',
+                    marginB: 2
+                }
+            }],
+            selectedIndex: 0
+        }, function (ret, err) {
+            if (ret.eventType === 'click') {
+                var statusBarStyle;
+                var frameName;
+                var headerH;
+                var selectedDom = $api.domAll('header')[ret.index];
+                var preSelectedDom = $api.dom('.selected');
+
+                if (ret.index === 3 && !$api.getStorage('userId')) {
+                    $app.openWin('login_home');
+                    NVTabBar.setSelect({
+                        index: currentIndex
+                    });
+                    return;
+                }
+                currentIndex = ret.index;
+                $api.addCls(preSelectedDom, 'aui-hide');
+                $api.removeCls(preSelectedDom, 'selected');
+                $api.removeCls(selectedDom, 'aui-hide');
+                $api.addCls(selectedDom, 'selected');
+                switch (ret.index) {
+                    case 0:
+                        frameName = 'index_home_frame';
+                        statusBarStyle = 'light';
+                        headerH = homeHeaderH;
+                        break;
+                    case 1:
+                        frameName = 'index_category_frame';
+                        statusBarStyle = 'dark';
+                        headerH = categoryHeader.offsetHeight;
+                        break;
+                    case 2:
+                        frameName = 'index_shopping_cart_frame';
+                        statusBarStyle = 'dark';
+                        headerH = cartHeader.offsetHeight;
+                        break;
+                    case 3:
+                        frameName = 'index_person_frame';
+                        statusBarStyle = 'light';
+                        headerH = 0;
+                        break;
+                }
+                fnHideAllFrame();
+                fnOpenHomeFrame(frameName, headerH);
+                api.setStatusBarStyle({style: statusBarStyle, animated: false});
+            }
+        });
+    }
+
+    function fnOpenHomeFrame(name, headerH) {
+        // api.openFrame({
+        //     name: name,
+        //     url: name + '.html',
+        //     rect: {
+        //         x: 0,
+        //         y: headerH,
+        //         w: 'auto',
+        //         h: api.winHeight - headerH - 50
+        //     },
+        //     bounces: true
+        // });
+        $app.openFrame(name, null, null, null, {
+            rect: {
+                marginTop: headerH,
+                marginBottom: 50
+            }
+        });
+    }
+
+    function fnHideAllFrame(name) {
+        if (name) {
+            api.setFrameAttr({
+                name: name,
+                hidden: true
+            });
+        } else {
+            api.setFrameAttr({
+                name: 'index_home_frame',
+                hidden: true
+            });
+            api.setFrameAttr({
+                name: 'index_category_frame',
+                hidden: true
+            });
+            api.setFrameAttr({
+                name: 'index_shopping_cart_frame',
+                hidden: true
+            });
+            api.setFrameAttr({
+                name: 'index_person_frame',
+                hidden: true
+            });
+        }
+    }
+</script>
+
+</html>

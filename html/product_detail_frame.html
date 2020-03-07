@@ -1,0 +1,393 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+    <style>
+
+        html, body {
+            height: 100%;
+        }
+
+        img {
+            display: inline-block;
+        }
+
+        .vue-content {
+            height: 100%;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 55%;
+        }
+
+        .swiper-slide {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .swiper-tag {
+            position: absolute;
+            bottom: .75rem;
+            right: .75rem;
+            z-index: 99;
+            font-size: .7rem;
+            padding: 3px 5px;
+            background: white;
+            border: .5px solid #cccccc;
+            line-height: 1;
+            color: rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+        }
+
+        .product-title {
+            background: white;
+            padding: .75rem;
+        }
+
+        .product-price {
+            position: relative;
+        }
+
+        .product-price-now {
+            font-size: 1.5rem;
+            color: #b22833;
+        }
+
+        .product-price-pre {
+            color: #939393;
+        }
+
+        .product-title-name-left {
+            font-size: .8rem;
+            width: 75%;
+            display: inline-block;
+            float: left;
+            border-right: #f0f0f0 .5px dashed;
+        }
+
+        .product-title-name-right {
+            font-size: .8rem;
+            width: 25%;
+            display: inline-block;
+            float: left;
+            text-align: center;
+        }
+
+        .sub-name {
+            font-size: .6rem;
+            color: #939393;
+        }
+
+        .aui-list .aui-list-item-title {
+            font-size: .7rem;
+        }
+
+        .user-avatar {
+            border-radius: 50%;
+        }
+
+        .user-date {
+            color: #939393;
+            font-size: .6rem;
+        }
+
+        .user-comment-info {
+            font-size: .7rem;
+        }
+
+        .comment-content {
+            padding-top: .5rem !important;
+            padding-bottom: .5rem !important;
+        }
+
+        .user-comment-info-img {
+            display: inline-block;
+            background-size: cover;
+            background-position: center;
+            margin-left: .5rem;
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+
+        .product-detail-info {
+            line-height: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div class="vue-content">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div v-for="item in productDetail.img" class="swiper-slide" :style="{'background-image': 'url('+item+')'}"></div>
+        </div>
+        <div class="swiper-tag">{{currentImgIndex + 1}}/{{productDetail.img.length}}</div>
+    </div>
+    <div class="product-title">
+        <div class="product-price">
+            <span class="product-price-now">￥{{productDetail.price}}</span>
+            <del class="product-price-pre">￥{{productDetail.prePrice}}</del>
+            <span class="aui-font-size-12" style="position: absolute;right: .75rem;bottom: 0.25rem;">V2会员最高返回馈金 <span
+                    style="color: #b22833">￥31.19</span></span>
+        </div>
+        <div class="product-title-name aui-margin-t-5">
+            <div class="product-title-name-left">
+                <div class="name" v-text="productDetail.productName"></div>
+                <div class="sub-name">选款师力荐 专属私人按摩师</div>
+            </div>
+            <div class="product-title-name-right">
+                <div style="color: #b22833;font-size: .8rem">97.9%</div>
+                <div style="color: #939393;font-size: .7rem">好评率</div>
+            </div>
+            <div class="aui-clearfix"></div>
+        </div>
+    </div>
+    <div class="product-select aui-margin-t-10">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item aui-list-item-middle" tapmode onclick="fnOpenSelectFrame()">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title">请选择规格数量</div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title">
+                        <span style="position:absolute;">配送</span><span style="margin-left: 2rem">至 北京市海淀区杏坛路 15 北三环中路44号院</span>
+                        <div style="margin-left: 2rem">支持配送</div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title aui-font-size-12" style="color: #939393;">
+                        支持30天无忧退换货&nbsp;&nbsp;48小时快速退款 <br>
+                        满88免邮费&nbsp;&nbsp;网易自营品牌&nbsp;&nbsp;国内部分地区不配送
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="product-comment aui-margin-t-10">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item aui-list-item-middle">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title">用户评价(5457)</div>
+                    <div class="aui-list-item-right aui-font-size-14"><span style="color: #b22833;">99.7%</span> 好评率
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item comment-content">
+                <div class="user-comment">
+                    <div class="user-info">
+                        <img src="../image/test_profile_avatar.png" alt="" width="25" height="25" class="user-avatar">
+                        <span style="font-size: .7rem;vertical-align: text-bottom">J***Y</span>
+                        <img src="../image/profile_level6_ic.png" alt="" width="16" height="16">
+                        <img src="../image/orderform_comment_smallstar_ic.png" alt="" width="16" height="16">
+                        <img src="../image/orderform_comment_smallstar_ic.png" alt="" width="16" height="16">
+                        <img src="../image/orderform_comment_smallstar_ic.png" alt="" width="16" height="16">
+                    </div>
+                    <div class="user-date">2019.06.18 13:37:29</div>
+                    <div class="user-comment-info">东西十分好用。东西十分好用。东西十分好用。</div>
+                    <div class="user-comment-info-img-content">
+                        <div class="user-comment-info-img"
+                             style="background-image: url(../image/test_product_detail_pic00.jpg)"></div>
+                        <div class="user-comment-info-img"
+                             style="background-image: url(../image/test_product_detail_pic01.jpg)"></div>
+                        <div class="user-comment-info-img"
+                             style="background-image: url(../image/test_product_detail_pic02.jpg)"></div>
+                        <div class="user-comment-info-img"
+                             style="background-image: url(../image/test_product_detail_pic03.jpg)"></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="product-detail-info">
+        <p><img src="https://yanxuan.nosdn.127.net/f5b41200ddb8d6e1d23e76afd7ccd0ed.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/76f2c9c5243c9d3d0f3a814df871acaa.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/cfbb4c3812e2e7628c74f897614c2f78.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/0522bb21db1a06165437d1fdf54ac5d0.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/39a3bd66742b1744c9e35c315ac33b15.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/de36bd36b0a4865c3c74d978b22fa71f.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/0dee96bcb704f118de5c6fba846d4774.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/34d5df1fada5c4793515849e01980eb5.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/41bc2359dd0ffa972bb4fb70421f358f.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/262bf4e558f4faa79dc0605d2ae93d76.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/393dd157529c7561c6d5501a49772910.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/15ebc251cccb653f2aade1d3a9e6c94d.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/4dd3c14ab9ee5fb28470a66ee0a849f4.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/323d6e4dd494f2b4968d7609e0aadb53.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/5fce1665e07d77e5f776b9086005f4ef.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/0ee0614ec600b850ca91789c5004b63b.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/05d86675cd22b49cb6334473e0d42f26.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/357d8129e6a001ba1b91d17b6628ae07.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/ae1a4343940d54c89c556535da41e45f.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/c676d2a3adfb8f2594b1290a73d183ce.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/afcbd602596a32ac1bcbcc6bb67679ef.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/a7d09b3efda8518530f482f2d5e09bf2.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/56f0099a5f54a249181cf7620de4a624.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/694bd8b7cc9a7bbc9b6642e99201aa7b.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/b9e2227e9b4c9b5683f59a2c36163f19.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/b3d763be6aa3ae274425d0d7fd988110.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/d9f91d83278e81006a7aea62f5743b5d.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/84c92940a53b677813c274796edd1d7c.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/b77abefbeb855eb878e83549843f89d2.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/43bee9e04b32477856a6266b3dd71ec5.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/1b8c5abc539a3cfe01b437aec870336d.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/8f7d53694664af61754913d8ec7e20eb.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/c2db018398e731a7e038a7074edb84e2.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/0aaa175f93fdb9383c9a23c88f2a632c.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/f74e18cd33f6a163533927c797e02d57.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/3175ac9d0e84d763987c7aa4bbcf1984.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/2a7475041170379bb2678d5779f02bd9.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/c081c881abf8ddb9f2670f883c23dfa7.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/01251c5baa238084e881aa5f6d1f69c8.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/e01327e1691ce85e75c69cf7cb355659.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/5df65959abc92a5c2d22bcf2e217631b.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/3941efb4e41f16131e135ae5761c8903.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/6991f67d8d8c2ac4cf569e5ea1f01ee0.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/966f2c69b63f8769b1bbd32337e43cf4.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/6915a9e7b3d22891cf2851c5cef0aaf4.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/e90facd03b188fe63158c5d93b25c5b9.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/40936e1f047ec60c0ea423c75fa329fa.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/ab50c08339848fb5bf30bbfa1072d88c.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/0a2e77962a8ac4664fe4412703f087a8.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/c16d570368e28588b5d883fcb8745ef6.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/fe274b6d8c1f6be42e4eb79529cc474e.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/aed078c27d82ecdd053bd4ece8265441.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/eded4cfd6b15f602ae44329c9b7e0882.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/a7f62795a400c93c177996bc5ad69ce6.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/36cd040397980140f8857ac75799a2a7.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/5bf98837a1377e85cbede68f17959fa6.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/48801b6e33ee267b2803a508252f7d41.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/c8e929c5e6adaacb029fd51f7b1f2920.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/ed1a6785c308ca2e703ac76c05802d36.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/df9153d0b6ac6697cb4e72a7c4c8d809.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/0e0efa6c8c74d405da928c2be90b6be1.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/f8ab0ee5e8f53be065b25cb1b6a83868.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/afc43771e49195c054a15fb94e3359d7.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/6b6946808148587138ca4fdb8ff34270.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/4557f1f248994bf144c918265241a849.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/b2f4fee64128626596493036aef9c7eb.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/dd317a2978e1b58a7efd8024ac087b21.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/e78f2981ab755633fe356c6e17048205.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/a24d1deb1ab5787eabf19a2d0885e511.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/733b3cc9ed7c2c6f8dfbc6e28cf69dcb.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/ff2564c4906e286515e6cecf704bf5e4.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/b4d24816b37fb52cca0cf2de3edc1eb2.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/6d400d91af4825e069d208803ae741ac.jpg"/></p>
+        <p><img src="https://yanxuan.nosdn.127.net/bca1c3cdd89416e4407f44f2798bb755.jpg"/></p>
+
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript">
+
+    var vm;
+    var productDetail = {
+        id: 10,
+        productName: '多功能私享按摩椅',
+        productPreview: '../image/test_product_detail_pic00.jpg',
+        price: 2079,
+        prePrice: 2599,
+        amount: 1,
+        attribute: ['1个装', '2个装'],
+        img: ['../image/test_product_detail_pic01.jpg',
+            '../image/test_product_detail_pic00.jpg',
+            '../image/test_product_detail_pic02.jpg',
+            '../image/test_product_detail_pic03.jpg']
+    };
+    apiready = function () {
+        $app.openFrame('product_detail_header_frame', null, null, null, {
+            rect: {
+                marginTop: 0,
+                marginLeft: 0,
+                marginRight: 0,
+            },
+            bounces: false
+        })
+
+        initVue();
+    };
+
+
+    function initVue() {
+        vm = new Vue({
+            el: '.vue-content',
+            data: {
+                productDetail: productDetail,
+                currentImgIndex: 0
+            },
+            mounted: function () {
+                var swiper = new Swiper('.swiper-container', {
+                    pagination: {
+                        el: '.swiper-pagination'
+                    },
+                    on:{
+                        slideChange:function () {
+                            vm.currentImgIndex = this.activeIndex;
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+
+    window.addEventListener('load', function () {
+        document.addEventListener('touchmove', touch, false);
+        document.addEventListener('touchend', touch, false);
+
+        function touch(event) {
+            var event = event || window.event;
+
+            switch (event.type) {
+                case "touchmove":
+                    changeCss();
+                    break;
+                case "touchend":
+                    changeCss();
+                    break;
+            }
+        }
+    }, false);
+
+    window.onscroll = function (ev) {
+        changeCss()
+    }
+
+    function changeCss() {
+        api.sendEvent({
+            name: 'changeHeaderCss',
+            extra: {scrollY: window.scrollY}
+        });
+    }
+
+
+    function fnOpenSelectFrame() {
+        $app.openFrame('product_select_item_frame', null, null, {
+            productDetail: vm.productDetail
+        }, {
+            rect: {
+                marginBottom: api.pageParam.footerH
+            },
+            bounces: false
+        });
+    }
+
+</script>
+
+</html>

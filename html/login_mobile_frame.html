@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>login home</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+        html, body {
+            background: #fffeff;
+            height: 100%;
+        }
+
+        .aui-content {
+            text-align: center;
+            padding: 0 .75rem;
+        }
+
+        .img-logo {
+            display: inline-block;
+            width: 40%;
+            margin-top: 2.5rem;
+        }
+
+        input[type="text"] {
+            font-size: .7rem;
+            padding: .5rem;
+        }
+
+        #mobile {
+            margin-top: 2.5rem;
+        }
+
+        .code-content {
+            position: relative;
+        }
+
+        #code {
+            margin-top: .25rem;
+        }
+
+        .code-btn {
+            padding: .2rem .5rem;
+            border: .5px solid rgba(0, 0, 0, 0.6);
+            color: rgba(0, 0, 0, 0.6);
+            border-radius: 2px;
+            font-size: .6rem;
+            display: inline-block;
+            position: absolute;
+            right: .5rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .code-btn-disable {
+            border: .5px solid rgba(0, 0, 0, 0.2);
+            color: rgba(0, 0, 0, 0.2);
+        }
+
+        .tip-password {
+            text-align: right;
+            font-size: .7rem;
+            margin-top: .75rem;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .aui-btn-block {
+            margin-top: .75rem;
+            height: 2.4rem;
+            border-radius: 2px;
+            font-size: .6rem;
+            color: white;
+        }
+
+        .tip-question {
+            position: absolute;
+            bottom: 1rem;
+            text-align: center;
+            width: 100%;
+            color: rgba(0, 0, 0, 0.4);
+            font-size: .7rem;
+        }
+    </style>
+</head>
+
+<body>
+<section class="aui-content">
+    <img class="img-logo" src="../image/login_logo_ic.png" alt="">
+    <div class="mobile-content">
+        <input id="mobile" class="aui-border-b" type="number" placeholder="输入手机号">
+    </div>
+    <div class="code-content">
+        <input id="code" class="aui-border-b" type="text" placeholder="输入验证码">
+        <span class="code-btn" tapmode onclick="fnGetCode(this)">获取验证码</span>
+    </div>
+    <div class="password-content aui-margin-t-10 aui-hide">
+        <input id="password" class="aui-border-b" type="password" placeholder="密码">
+    </div>
+    <div class="tip-password" tapmode onclick="fnSwitch(this)">使用密码登录</div>
+    <div class="aui-btn aui-btn-block" style="background: #d8181e" tapmode onclick="fnLogin()">登录</div>
+</section>
+<div class="tip-question">遇到问题？</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    var type = 'code';  // code 验证码登录  password 密码登录
+    apiready = function () {
+        initView();
+        initEvent();
+    };
+
+    function initView() {
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        $logger.print($api.getStorage('mobile'));
+        $api.val($api.dom('#mobile'), $api.getStorage('mobile'));
+        $api.val($api.dom('#password'), $api.getStorage('password'));
+    }
+
+    function initEvent() {
+        api.addEventListener({
+            name: 'navitembtn'
+        }, function (ret, err) {
+            if (ret.type === 'left') {
+                api.closeWin();
+            } else {
+                $app.alert('提示', '这是注册按钮');
+            }
+        });
+    }
+
+    function fnGetCode(context) {
+        var timeout = 59;
+        if ($api.text(context) !== '获取验证码') {
+            return;
+        }
+        $api.addCls(context, 'code-btn-disable');
+        var interval = setInterval(function () {
+            if (timeout === 0) {
+                timeout = 59;
+                $api.text(context, '获取验证码');
+                clearInterval(interval);
+                $api.removeCls(context, 'code-btn-disable');
+                return;
+            }
+            $api.text(context, timeout + 's');
+            timeout--;
+        }, 1000);
+    }
+
+    function fnSwitch(context) {
+        if (type === 'code') {
+            $api.addCls($api.dom('.code-content'), 'aui-hide');
+            $api.removeCls($api.dom('.password-content'), 'aui-hide');
+            type = 'password';
+            $api.text(context, '使用短信验证码登录');
+            $api.text($api.dom('.tip-question'), '忘记密码？');
+        } else {
+            $api.addCls($api.dom('.password-content'), 'aui-hide');
+            $api.removeCls($api.dom('.code-content'), 'aui-hide');
+            type = 'code';
+            $api.text(context, '使用密码登录');
+            $api.text($api.dom('.tip-question'), '遇到问题？');
+        }
+    }
+
+    function fnLogin() {
+        var mobile = $api.val($api.dom('#mobile'));
+        var password = $api.val($api.dom('#password'));
+
+        if (!$reg.mobile.test(mobile)) {
+            $app.toast('请输入正确的手机号！');
+            return;
+        }
+        if (password.length < 6) {
+            $app.toast('密码长度不能小于6位');
+            return;
+        }
+
+        $app.showProgress();
+        $http.POST('/api/shopping/login', {
+            values: {
+                mobile: mobile,
+                password: password
+            }
+        }, function (ret) {
+            $api.setStorage('userId',ret.data.user_id);
+            $api.setStorage('token',ret.data.token);
+            $api.setStorage('mobile',mobile);
+            $api.setStorage('password',password);
+            $http.GET('/api/shopping/user/info',{
+                values:{
+                    userId: ret.data.user_id
+                }
+            },function (ret) {
+                $app.hideProgress();
+                $api.setStorage('avatar',ret.data.avatar);
+                $api.setStorage('userName',ret.data.userName);
+                $api.setStorage('address',ret.data.address);
+                api.sendEvent({
+                    name: 'loginSuccess'
+                });
+                api.closeToWin({
+                    name: 'index_main'
+                });
+            })
+        })
+    }
+</script>
+
+</html>

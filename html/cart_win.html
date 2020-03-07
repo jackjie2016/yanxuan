@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+        #shopping-cart-header {
+            line-height: 2.25rem;
+            text-align: left;
+            background-color: #fefefe;
+        }
+
+        #shopping-cart-header {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .header-title {
+            display: inline-block;
+            width: auto;
+            font-size: .9rem;
+            margin-left: .75rem;
+        }
+
+        .header-right {
+            float: right;
+            font-size: .8rem;
+            margin-right: .75rem;
+        }
+
+        .header-right span {
+            line-height: 1;
+            margin-right: .5rem;
+        }
+
+        .icon-header-share {
+            width: 1.5rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+<header id="shopping-cart-header" class="aui-bar aui-bar-nav aui-border-b">
+    <div class="header-title"> < 购物车</div>
+    <div class="header-right">
+        <span style="color: #DD1A21;">领券</span><span>编辑</span>
+        <img class="icon-header-share" src="../image/all_share_nor_ic.png" alt="">
+    </div>
+</header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        $app.openFrame('index_shopping_cart_frame','header');
+    };
+</script>
+
+</html>

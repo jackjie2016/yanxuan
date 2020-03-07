@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>login home</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+        html,body{
+            background: #F2F5F4;
+            height: 100%;
+        }
+
+        .aui-content ,.bottom{
+            text-align: center;
+            padding:0 .75rem;
+        }
+
+        .img-logo{
+            display: inline-block;
+            width: 40%;
+        }
+
+        .img-pic{
+            width: 100%;
+            display: inline-block;
+        }
+
+        .btn-icon{
+            display: inline-block;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .btn-text{
+            vertical-align: text-bottom;
+            font-size: .7rem;
+            color: white;
+        }
+
+        .aui-btn-block{
+            line-height: 1;
+            border-radius: 2px;
+            height: 2.4rem;
+        }
+
+        .bottom{
+            height: 35%;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .bottom-register-text{
+            margin-top: .75rem;
+            font-size: .7rem;
+            color: rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+
+<body>
+<header class="aui-bar">
+    <img class="aui-margin-l-5" src="../image/all_popup_close_nor_ic.png" alt="" width="40" tapmode onclick="api.closeWin();">
+</header>
+<section class="aui-content">
+    <img class="img-logo" src="../image/login_logo_ic.png" alt="">
+    <img class="img-pic" src="../image/login_pic_3_ic.jpg" alt="">
+</section>
+<div class="bottom">
+    <div class="aui-btn  aui-btn-block" style="background: #d8181e" tapmode onclick="fnOpenMobileLogin()">
+        <img class="btn-icon" src="../image/login_login_button_icon_phone.png" width="25">
+        <span class="btn-text" style="color: #f0f3f3;">手机号登录</span>
+    </div>
+    <div class="aui-btn  aui-btn-block aui-margin-t-15" style="background: #f0f3f3;border: .5px #d8181e solid;">
+        <img class="btn-icon" src="../image/login_login_button_icon_mail.png" width="25">
+        <span class="btn-text" style="color: #d8181e;">邮箱账号登录</span>
+    </div>
+    <div class="bottom-register-text">手机号快捷注册 ></div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        $app.fixStatusBar('header');
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+    };
+
+    function fnOpenMobileLogin() {
+        api.openTabLayout({
+            name: 'login_mobile_frame',
+            url: 'login_mobile_frame.html',
+            title: '手机号登录',
+            hideNavigationBar: false,
+            navigationBar: {
+                background: '#f9f8f9',
+                color: 'rgba(0,0,0,0.8)',
+                leftButtons: [{
+                    iconPath: 'widget://image/search_back_nor_ic.png'
+                }],
+                rightButtons:[{
+                    text: '注册',
+                    color: 'rgba(0,0,0,0.8)',
+                    fontSize: 14
+                }]
+            }
+        });
+    }
+</script>
+
+</html>

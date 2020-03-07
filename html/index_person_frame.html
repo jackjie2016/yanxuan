@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+        .top-content {
+            width: 100%;
+            height: 9.5rem;
+            background-image: url("../image/profile_member_bg.jpg");
+            background-size: cover;
+            background-position: bottom;
+            position: relative;
+        }
+
+        .top-header {
+            height: 2.25rem;
+            line-height: 2.25rem;
+            text-align: right;
+        }
+
+        .top-header img {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: .75rem;
+        }
+
+        .profile-content {
+            padding: .75rem;
+            position: relative;
+        }
+
+        .profile-content-avatar {
+            background-image: url("../image/test_profile_avatar.png");
+            background-size: cover;
+            background-position: center;
+            border-radius: 3.5rem;
+            height: 3.5rem;
+            width: 3.5rem;
+            display: inline-block;
+        }
+
+        .profile-content-info {
+            display: inline-block;
+            vertical-align: top;
+            padding: .5rem;
+        }
+
+        .profile-content-info-username {
+            color: white;
+            font-size: .9rem;
+            vertical-align: text-top;
+        }
+
+        .profile-content-info-level {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .profile-content-info-icon {
+            display: inline-block;
+            /*width: 10px;*/
+            height: 12px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .profile-content-signin {
+            width: 4.5rem;
+            position: relative;
+            font-size: .6rem;
+            color: #c4a972;
+            background: #f0ddb8;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: .25rem;
+            padding: 2px;
+        }
+
+        .profile-content-vip {
+            background: #3b3b3b;
+            padding: .25rem;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            border-bottom-left-radius: 20px;
+            border-top-left-radius: 20px;
+        }
+
+        .profile-content-vip span {
+            font-size: .6rem;
+            color: #eedbb4;
+            line-height: 1;
+        }
+
+        .profile-content-vip-text {
+            display: inline-block;
+            width: 2.5rem;
+            line-height: 0;
+            vertical-align: text-bottom;
+        }
+
+        .tag-content {
+            position: absolute;
+            bottom: .75rem;
+            left: .75rem;
+            font-size: .6rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .bottom-content-tag {
+            border: .5px solid rgba(255,255,255,0.8);
+            padding: 2px 5px;
+            line-height: 1;
+            border-radius: 3px;
+        }
+
+        .aui-list .aui-list-item i.aui-iconfont{
+            font-size: 1.2rem;
+            color: rgba(0,0,0,0.6);
+        }
+
+        .aui-list .aui-list-item-title{
+            font-size: .7rem;
+            color: rgba(0,0,0,0.6);
+        }
+
+        .aui-grid .aui-grid-label{
+            font-size: .6rem;
+            color: rgba(0,0,0,0.6);
+        }
+
+        .label-price{
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        .my-service-icon{
+            width: 1rem;
+            height: 1rem;
+            display: inline-block;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .aui-list{
+            background: white;
+        }
+        .aui-list.aui-list-in .aui-list-item:last-child{
+            background: none;
+        }
+    </style>
+</head>
+<body>
+<div class="top-content">
+    <div class="top-header">
+        <img src="../image/profile_survey_ic.png" alt="" width="22" height="22"><img
+            src="../image/profile_qr_code_ic.png" alt="" width="22" height="22">
+    </div>
+    <div class="profile-content">
+        <div class="profile-content-avatar"></div>
+        <div class="profile-content-info">
+            <div>
+                <span class="profile-content-info-username">wade312</span>
+                <img class="profile-content-info-level" src="../image/profile_level6_ic.png" alt="" width="16"
+                     height="16">
+            </div>
+            <div class="profile-content-signin">
+                <img class="profile-content-info-icon" style="left: .4rem;"
+                     src="../image/profile_integral_member_calendar_ic.png" alt="">
+                <span style="margin-left: 5px">每日签到</span>
+                <img class="profile-content-info-icon" style="right: .4rem;height: 8px;"
+                     src="../image/profile_integral_member_arrow_ic.png" alt="">
+            </div>
+        </div>
+        <div class="profile-content-vip">
+            <img style="display: inline-block;vertical-align: text-bottom;" src="../image/profile_topgift_ic.png" alt=""
+                 width="30">
+            <div class="profile-content-vip-text">
+                <span>超级会员</span>
+                <span style="font-size: .5rem;margin-top: 3px">正在试用</span>
+            </div>
+        </div>
+    </div>
+    <div class="tag-content">
+        <span class="bottom-content-tag">会员权益</span><span class="aui-margin-l-5">本期会员礼券已开放领取，立即领取></span>
+    </div>
+</div>
+<div class="bottom-content">
+    <ul class="aui-list aui-list-in">
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">我的订单</div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <section class="aui-grid">
+                    <div class="aui-row">
+                        <div class="aui-col-5">
+                            <i class="aui-iconfont aui-icon-image"></i>
+                            <div class="aui-grid-label">待付款</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="aui-iconfont aui-icon-mail"></i>
+                            <div class="aui-grid-label">待发货</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="aui-iconfont aui-icon-cart"></i>
+                            <div class="aui-grid-label">已发货</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="aui-iconfont aui-icon-comment"></i>
+                            <div class="aui-grid-label">待评价</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="aui-iconfont aui-icon-cert"></i>
+                            <div class="aui-grid-label">退换/售后</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </li>
+    </ul>
+    <ul class="aui-list aui-list-in aui-margin-t-10">
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title">我的资产</div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <section class="aui-grid">
+                    <div class="aui-row">
+                        <div class="aui-col-5">
+                            <i class="label-price">￥14.76</i>
+                            <div class="aui-grid-label">回馈金</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="label-price">0</i>
+                            <div class="aui-grid-label">红包</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="label-price">1</i>
+                            <div class="aui-grid-label">优惠券</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="label-price">￥0</i>
+                            <div class="aui-grid-label">津贴</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="label-price">0</i>
+                            <div class="aui-grid-label">礼品卡</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </li>
+    </ul>
+    <ul class="aui-list aui-list-in aui-margin-t-10">
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title">我的服务</div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <section class="aui-grid">
+                    <div class="aui-row">
+                        <div class="aui-col-5">
+                            <i class="my-service-icon" style="background-image: url('../image/profile_group_ic.png')"></i>
+                            <div class="aui-grid-label">拼团订单</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="my-service-icon" style="background-image: url('../image/profile_invitation_ic.png')"></i>
+                            <div class="aui-grid-label">邀请返利</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="my-service-icon" style="background-image: url('../image/profile_profile_ic_select.png')"></i>
+                            <div class="aui-grid-label">我的甄选家</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="my-service-icon" style="background-image: url('../image/profile_address_ic.png')"></i>
+                            <div class="aui-grid-label">津贴</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="my-service-icon" style="background-image: url('../image/profile_profile_cooperation_ic.png')"></i>
+                            <div class="aui-grid-label">商务合作</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="my-service-icon" style="background-image: url('../image/profile_company.png')"></i>
+                            <div class="aui-grid-label">企业采购</div>
+                        </div>
+                        <div class="aui-col-5">
+                            <i class="my-service-icon" style="background-image: url('../image/profile_set_ic.png')"></i>
+                            <div class="aui-grid-label">设置</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function () {
+        initView();
+    };
+
+    function initView() {
+        $app.fixStatusBar('.top-header');
+        $logger.print($api.getStorage('avatar'));
+        $api.css($api.dom('.profile-content-avatar'), 'background-image: url('+ $api.getStorage('avatar')+')');
+        $api.text($api.dom('.profile-content-info-username'), $api.getStorage('userName'));
+    }
+
+</script>
+
+</html>

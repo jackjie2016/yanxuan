@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<security>
+    <item name="wxPay_appId" value="wxd0d84bbf23b4a0e4"/>
+    <item name="wxPay_mchId" value="1234567890"/>
+    <item name="wxPay_partnerKey" value="***"/>
+    <item name="wxPay_notifyUrl" value="***"/>
+</security>

@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+        html, body {
+            background-color: #f5f5f5;
+            height: 100%;
+        }
+
+        .unselect-tips, .select-tips {
+            height: 2rem;
+            display: flex;
+            line-height: 2rem;
+            width: 100%;
+        }
+
+        .unselect-tips span {
+            font-size: .6rem;
+            flex: 1;
+            display: inline-block;
+            text-align: center;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .select-tips {
+            background-color: #fff6d2;
+            color: #f2871d;
+            font-size: .7rem;
+            position: relative;
+        }
+
+        .select-tips-text {
+            margin-left: .75rem;
+        }
+
+        .select-tips-right {
+            display: inline-block;
+            right: 1.8rem;
+            position: absolute;
+        }
+
+        .select-tips:before {
+            content: '';
+            width: 0.5rem;
+            height: 0.5rem;
+            position: absolute;
+            top: 50%;
+            right: 0.75rem;
+            background: transparent;
+            border: 1px solid #f2871d;
+            border-top: none;
+            border-right: none;
+            z-index: 2;
+            border-radius: 0;
+            transform: translate(-50%, -50%) rotate(-135deg);
+        }
+
+        .aui-content {
+            height: calc(100% - 2rem - 2.5rem);
+        }
+
+        .empty-content {
+            display: inline-block;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .aui-list .aui-list-header {
+            background-color: white;
+            padding: .5rem .75rem;
+            display: block;
+            font-size: .7rem;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .aui-list .aui-list-header span {
+            vertical-align: middle;
+        }
+
+        .common-label {
+            background-size: 100% 100%;
+            background: linear-gradient(to right, #fb5957, #fc7855);
+            padding: 0 5px;
+            color: white;
+            font-size: .5rem;
+            border-radius: 2px;
+            margin-left: 1.3rem;
+        }
+
+        .common-right {
+            margin-top: 3px;
+            font-size: .6rem;
+            color: #DD1A21;
+        }
+
+        .common-check {
+            height: 1rem;
+            width: 1rem;
+            border-radius: 1rem;
+            background-size: cover;
+            background-position: center;
+            background-image: url("../image/all_cart_cb_not_checked_enabled.png");
+            margin-right: .25rem;
+            position: absolute;
+            transform: translate(0, -50%);
+            top: 50%;
+            left: 0.75rem;
+        }
+
+        .common-check-active {
+            background-image: url("../image/all_cart_cb_checked_enabled.png");
+        }
+
+        .divide-line {
+            height: .5px;
+            margin-left: .75rem;
+            width: 100%;
+            background: #dddddd;
+        }
+
+        .aui-list .aui-list-item {
+            padding: .5rem .75rem;
+            justify-content: unset;
+            position: relative;
+        }
+
+        .item-image {
+            border-radius: 5px;
+            margin-left: 1.3rem;
+        }
+
+        .item-content {
+            width: -webkit-fill-available;
+            font-size: .7rem;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .item-product-info {
+            font-size: .6rem;
+            color: rgba(0, 0, 0, 0.4);
+            background: #f9f8f9;
+            border: .5px solid #edecec;
+            padding: 0 10px;
+            border-radius: 2px;
+        }
+
+        .item-price-content {
+            position: absolute;
+            bottom: .5rem;
+            line-height: 1;
+        }
+
+        .pre-price {
+            font-size: .55rem !important;
+            color: #aaa;
+        }
+
+        .common-price {
+            color: #000;
+            font-weight: bold;
+        }
+
+        .item-num-select {
+            position: absolute;
+            right: .75rem;
+            bottom: .5rem;
+            display: inline-block;
+        }
+
+        .item-num-select span {
+            width: 1.5rem;
+            height: 1.3rem;
+            line-height: 1.1rem;
+            text-align: center;
+            font-size: 1rem;
+            border: .5px solid #747374;
+            vertical-align: bottom;
+        }
+
+        .item-num-select .item-num-select-decrease {
+            border-top-left-radius: 2px;
+            border-bottom-left-radius: 2px;
+            border-right: none;
+        }
+
+        .item-num-select .item-num-select-increase {
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
+            border-left: none;
+        }
+
+        .item-num-select input {
+            width: 1.5rem;
+            height: 1.3rem;
+            display: inline-block;
+            text-align: center;
+            border: .5px solid #747374;
+            font-size: .7rem;
+        }
+
+        .bottom {
+            position: fixed;
+            bottom: 0;
+            display: flex;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            background: white;
+            border-top: .5px solid #edecec;
+        }
+
+        .bottom-button {
+            flex: 3;
+            background: #DD1A21;
+            color: white;
+            text-align: center;
+            font-size: .7rem;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="vue-content" v-cloak>
+    <div class="unselect-tips" v-show="selectedNum === 0">
+        <span>30天无忧退换货</span><span>48小时快速退款</span><span>满88元免邮费</span>
+    </div>
+    <div class="select-tips" v-show="selectedNum !== 0">
+        <span class="select-tips-text">{{totalPrice >= 88?'已满足包邮条件':('再购￥'+(88-totalPrice)+'元可免邮费')}}</span>
+        <span class="select-tips-right" v-show="totalPrice < 88">去凑单</span>
+    </div>
+    <div class="aui-content">
+        <div class="empty-content">
+            <img src="../image/cart_empty_ic.png" alt="" width="124" height="124">
+            <div class="aui-font-size-14" style="color: rgba(0,0,0,0.4);text-align: center">去添加点什么吧</div>
+        </div>
+        <ul class="aui-list" v-if="productList.length !== 0">
+            <li class="aui-list-header">
+                <span class="common-check" :class="{'common-check-active':selectedNum === productList.length}"></span>
+                <span class="common-label">加价购</span><span class="aui-margin-l-10">再购1件立享每满1件可超值换购</span><span
+                    class="aui-pull-right aui-font-size-12 common-right">去凑单 ></span>
+            </li>
+            <div class="divide-line"></div>
+            <li class="aui-list-item" v-for="(item,index) in productList" :id="item.id">
+                <span class="common-check" :class="{'common-check-active': item.selected}"
+                      @click="fnCheckItem(index)"></span>
+                <img class="item-image" :src="item.productPreview" alt="" width="80" height="80"/>
+                <div class="item-content aui-margin-l-10">
+                    <div class="item-product-title" v-text="item.productName"></div>
+                    <span class="item-product-info" v-text="item.attribute"></span>
+                    <div class="item-price-content">
+                        <span class="common-price">￥{{item.price}}</span>
+                        <del class="aui-margin-l-5 pre-price">￥{{item.prePrice}}</del>
+                    </div>
+                    <div class="item-num-select">
+                        <span class="item-num-select-decrease">-</span><input type="number" pattern="[0-9]*"
+                                                                              :value="item.amount"><span
+                            class="item-num-select-increase">+</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="bottom" v-if="productList.length !== 0">
+        <div style="flex: 7;">
+            <span class="common-check" :class="{'common-check-active':selectedNum === productList.length}"
+                  @click="fnSelectAll"></span>
+            <span class="aui-font-size-14"
+                  style="margin-left: 2.25rem;color: rgba(0,0,0,0.4);">已选( {{selectedNum}} )</span>
+            <span class="aui-font-size-14 aui-margin-r-5"
+                  style="float:right;color: #DD1A21">合计：￥{{getTotalPrice()}}</span>
+        </div>
+        <div class="bottom-button" :style="{'background': selectedNum === 0?'#C4C4C5':'#DD1A21'}">下单</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    var vm;
+    apiready = function () {
+        initVue();
+        initData();
+        initEvent();
+    };
+
+    function initData() {
+        // $http.GET('/api/shopping',null,function (ret) {
+        //     vm.productList = ret.data;
+        // })
+    }
+
+    function initEvent() {
+        api.addEventListener({
+            name: 'add_cart'
+        }, function (ret, err) {
+            vm.productList = $api.getStorage('cart_data');
+        });
+    }
+
+    function initVue() {
+        vm = new Vue({
+            el: '.vue-content',
+            data: {
+                productList: $api.getStorage('cart_data'),
+                selectedNum: 0,
+                totalPrice: 0
+            },
+            methods: {
+                fnCheckItem: function (index) {
+                    this.productList[index].selected = !this.productList[index].selected;
+                    this.selectedNum = 0;
+                    for (var i = 0; i < this.productList.length; i++) {
+                        if (this.productList[i].selected) {
+                            this.selectedNum++;
+                        }
+                    }
+                },
+                fnSelectAll: function () {
+                    if (this.productList.length === this.selectedNum) {  // 取消全选
+                        for (var i = 0; i < this.productList.length; i++) {
+                            this.productList[i].selected = !this.productList[i].selected;
+                        }
+                        this.selectedNum = 0
+                    } else { // 全选
+                        for (var j = 0; j < this.productList.length; j++) {
+                            this.productList[j].selected = true;
+                        }
+                        this.selectedNum = this.productList.length;
+                    }
+                },
+                getTotalPrice: function () {
+                    var totalPrice = 0;
+                    for (var i = 0; i < this.productList.length; i++) {
+                        if (this.productList[i].selected) {
+                            totalPrice += this.productList[i].price * this.productList[i].amount;
+                        }
+                    }
+                    this.totalPrice = totalPrice;
+                    return totalPrice;
+                }
+            }
+        })
+    }
+</script>
+
+</html>

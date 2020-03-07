@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+        html, body {
+            background: transparent;
+        }
+
+        .aui-bar {
+            background: transparent;
+        }
+
+        img {
+            display: inline-block;
+        }
+
+        .btn-back {
+            position: absolute;
+            left: .5rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .btn-home {
+            position: absolute;
+            right: 2.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .header {
+            position: relative;
+            height: 2.25rem;
+        }
+
+        .btn-share {
+            position: absolute;
+            right: .5rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .light {
+            opacity: 0;
+        }
+
+        .header-text {
+            color: #000;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+<header class="aui-bar aui-bar-nav">
+    <div class="header">
+        <img class="btn-back dark" src="../image/goods_detail_ic_back_nor.png" width="30">
+        <img class="btn-home dark" src="../image/goods_ic_details_home_nor.png" width="30">
+        <img class="btn-share dark" src="../image/goods_detail_ic_share_nor.png" width="30">
+        <img class="btn-back light" src="../image/goods_detail_ic_back2_nor.png" width="30">
+        <img class="btn-home light" src="../image/goods_ic_details_home2_nor.png" width="30">
+        <img class="btn-share light" src="../image/all_share_nor_ic.png" width="30">
+
+        <div class="header-text">商品</div>
+    </div>
+</header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+
+    var lightArr = $api.domAll('.light');
+    var darkArr = $api.domAll('.dark');
+    var header = $api.dom('header');
+    var headerText = $api.dom('.header-text');
+    apiready = function () {
+
+        initView();
+        initEvent();
+    };
+
+
+    function initView() {
+        var headerH = $app.fixStatusBar('header');
+        api.setFrameAttr({
+            name: api.frameName,
+            rect: {
+                h: headerH
+            }
+        })
+    }
+
+    function initEvent() {
+        api.addEventListener({
+            name: 'changeHeaderCss'
+        }, function (ret, err) {
+            if (ret) {
+                changeHeaderCss(ret.value.scrollY)
+            }
+        });
+    }
+
+
+    function changeHeaderCss(scrollY) {
+        if (scrollY === 0) {
+            for (var i = 0; i < lightArr.length; i++) {
+                $api.css(lightArr[i], 'opacity:0');
+                $api.css(darkArr[i], 'opacity:1');
+            }
+            $api.css(header, 'background:rgba(255,255,255,0)');
+            $api.css(headerText, 'opacity: 0');
+        } else if (scrollY < 100) {
+            $api.css(header, 'background:rgba(255,255,255, ' + scrollY / 200 + ')');
+            $api.css(headerText, 'opacity: ' + scrollY / 200);
+            for (var i = 0; i < darkArr.length; i++) {
+                $api.css(darkArr[i], 'opacity:' + (1 - scrollY / 100));
+            }
+        } else if (scrollY >= 100) {
+            $api.css(header, 'background:rgba(255,255,255, ' + scrollY / 200 + ')');
+            $api.css(headerText, 'opacity: ' + scrollY / 200);
+            for (var i = 0; i < lightArr.length; i++) {
+                $api.css(lightArr[i], 'opacity:' + (1 - (200 - scrollY) / 100));
+                $api.css(darkArr[i], 'opacity:0');
+            }
+        }
+    }
+</script>
+
+</html>

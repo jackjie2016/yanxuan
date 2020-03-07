@@ -1,0 +1,872 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .aui-content {
+            background: #f1f1f1;
+        }
+
+        .banner-container {
+            background-image: url("../image/home_banner_bg.png");
+            background-size: cover;
+        }
+
+        .banner-slide {
+            width: calc(100% - 30px);
+            height: 8.1rem;
+            margin-top: .5rem;
+            border-radius: 6px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .swiper-container-horizontal > .swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+            bottom: 0;
+        }
+
+        .swiper-pagination-bullet {
+            background: url("../image/all_banner_indicator_white_ic.png") no-repeat;
+            background-size: contain;
+            width: 6px;
+            height: 9px;
+            opacity: 1;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: url("../image/all_banner_indicator_red_ic.png") no-repeat;
+            background-size: contain;
+        }
+
+        .platform-icon-tips {
+            display: flex;
+            background-color: #fefefe;
+        }
+
+        .aui-grid {
+            background: #fefefe;
+        }
+
+        .platform-icon-tips-item {
+            flex: 1;
+            text-align: center;
+            font-size: .5rem;
+            padding: 5px 0;
+        }
+
+        .platform-icon-tips-item img, .platform-icon-tips-item span {
+            display: inline-block;
+            vertical-align: middle;
+            color: #DD1A21;
+        }
+
+        .aui-grid [class*=aui-col-] {
+            padding: 0;
+        }
+
+        .aui-grid .aui-grid-label {
+            line-height: 1;
+        }
+
+        .icon-category {
+            width: calc(100% - 20px);
+            display: inline-block;
+        }
+
+        .text-category {
+            font-size: .55rem !important;
+        }
+
+        .divider {
+            width: 100%;
+            height: 15px;
+            background: linear-gradient(to top, #f1f1f1, #fefefe);
+        }
+
+        .sift {
+            width: 100%;
+            min-height: 100px;
+            padding: 0 .5rem;
+            background: #f1f1f1;
+        }
+
+        .sift-content, .recommend-content {
+            border-radius: 6px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .sift-title-image {
+            background-image: url("../image/image_home_title_sift.png");
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 3rem;
+        }
+
+        .grid-border {
+            display: flex;
+            flex-direction: column; /*垂直*/
+            justify-content: center; /*主轴对齐*/
+            align-items: center; /*交叉轴对齐*/
+            box-sizing: border-box; /*让边框并排*/
+            border-right: .5px solid #eee;
+            border-bottom: .5px solid #eee;
+        }
+
+        .grid-border:nth-child(2n) {
+            border-right: 0 none;
+        }
+
+        .grid-border:nth-last-child(1), .grid-border:nth-last-child(2) {
+            border-bottom: 0 none;
+        }
+
+        .sift-content-item-title {
+            font-size: .7rem;
+            font-weight: bold;
+            text-align: left;
+            line-height: 1;
+        }
+
+        .sift-content-item-subtitle {
+            margin-top: .2rem;
+            font-size: .5rem;
+            text-align: left;
+            color: #aaa;
+        }
+
+        .text-price {
+            font-size: .55rem !important;
+            color: #DD1A21;
+        }
+
+        .pre-price {
+            font-size: .55rem !important;
+            color: #aaa;
+        }
+
+        .sift-content-item-product-img {
+            background-position: center;
+            background-size: cover;
+            height: 3.6rem;
+        }
+
+        .recommend-content-title {
+            line-height: 1;
+        }
+
+        .common-bold-title {
+            font-size: .7rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .common-text-more {
+            font-size: .7rem;
+            color: #333;
+            float: right;
+            line-height: 1;
+        }
+
+        .recommend-banner {
+            width: 100%;
+            height: 6rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .recommend-item {
+            padding: 0 .5rem !important;
+            height: 8rem;
+            overflow: hidden;
+        }
+
+        .recommend-item-image {
+            width: 100%;
+            height: 5rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .recommend-item-title, .project-selection-title {
+            font-size: .7rem;
+            color: rgba(0, 0, 0, 0.6);
+            line-height: 1;
+            text-align: left;
+        }
+
+        .recommend-item-price {
+            text-align: left;
+            line-height: 1;
+            color: #da1920;
+            margin-top: .1rem !important;
+        }
+
+        .recommend-item-label {
+            text-align: left !important;
+            line-height: 1;
+        }
+
+        .recommend-item-label span, .activity-item-product-label span {
+            border: .5px solid #DD1A21;
+            display: inline;
+            border-radius: 10px;
+            font-size: .5rem;
+            color: #DD1A21;
+            padding: 1px 5px;
+            margin-right: 5px;
+        }
+
+        .project-selection-content, .activity-content {
+            font-size: 0;
+            background: #f1f1f1;
+        }
+
+        .project-selection-scroll {
+            width: 100%;
+            overflow-x: scroll;
+            white-space: nowrap;
+        }
+
+        .project-selection-item {
+            width: 70%;
+            border-radius: 6px;
+            overflow: hidden;
+            display: inline-block;
+            margin-left: .5rem;
+        }
+
+        .project-selection-item:last-child {
+            margin-right: .5rem;
+        }
+
+        .project-selection-item-image {
+            width: 100%;
+            height: 7rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .project-selection-item-content {
+            padding: 10px;
+            background: white;
+            font-size: .7rem;
+            line-height: 1;
+        }
+
+        .project-selection-item-title {
+            width: 75%;
+            display: inline-block;
+        }
+
+        .project-selection-item-price {
+            display: inline-block;
+            width: 25%;
+            float: right;
+            text-align: center;
+            color: #DD1A21;
+        }
+
+        .project-selection-item-description {
+            width: 100%;
+            color: rgba(0, 0, 0, 0.6);
+            font-size: .6rem;
+            margin-top: .25rem;
+        }
+
+        .activity-item {
+            border-radius: 5px;
+            overflow: hidden;
+            background: white;
+            margin: 0 .5rem .5rem;
+        }
+
+        .activity-item-image {
+            width: 100%;
+            height: 6rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .activity-item-product-item-image {
+            width: 100%;
+            height: 5rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .activity-item-product-item {
+            display: inline-block;
+            width: 30%;
+            height: 9rem;
+            padding: 0 .5rem;
+            color: rgba(0, 0, 0, 0.8);
+            border-right: .5px solid #eee;
+        }
+
+        .activity-item-product-item:last-child {
+            border: none;
+        }
+
+        .activity-item-product {
+            overflow-x: scroll;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+<section class="aui-content">
+    <div class="banner-container swiper-container">
+        <div class="swiper-wrapper">
+            <!--            <div class="swiper-slide banner-slide" style="background-image: url('../image/test_banner_01.jpg')"></div>-->
+            <!--            <div class="swiper-slide banner-slide" style="background-image: url('../image/test_banner_02.jpg')"></div>-->
+            <!--            <div class="swiper-slide banner-slide" style="background-image: url('../image/test_banner_03.jpg')"></div>-->
+            <!--            <div class="swiper-slide banner-slide" style="background-image: url('../image/test_banner_04.jpg')"></div>-->
+            <!--            <div class="swiper-slide banner-slide" style="background-image: url('../image/test_banner_05.jpg')"></div>-->
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="platform-icon-tips aui-padded-l-15 aui-padded-r-15">
+        <div class="platform-icon-tips-item" style="text-align: left">
+            <img src="../image/icon_home_wangyi.png" alt="" width="16">
+            <span>网易自营品牌</span>
+        </div>
+        <div class="platform-icon-tips-item">
+            <img src="../image/icon_home_security.png" alt="" width="16">
+            <span>30天无忧退换货</span>
+        </div>
+        <div class="platform-icon-tips-item" style="text-align: right">
+            <img src="../image/icon_home_money.png" alt="" width="16">
+            <span>48小时快速退款</span>
+        </div>
+    </div>
+    <section class="aui-grid">
+        <div id="category-list-content" class="aui-row aui-padded-l-5 aui-padded-r-5">
+            <!--            <div class="aui-col-5">-->
+            <!--                <img class="icon-category" src="../image/test_icon_home_classify_01.png" alt=""/>-->
+            <!--                <div class="aui-grid-label text-category">居家生活</div>-->
+            <!--            </div>-->
+        </div>
+    </section>
+    <div class="divider"></div>
+    <section class="sift">
+        <div class="sift-content">
+            <div class="sift-title-image"></div>
+            <div class="aui-grid">
+                <div class="aui-row">
+                    <div class="aui-col-xs-6 grid-border aui-padded-15" tapmode onclick="fnOpenDetail()">
+                        <div class="sift-content-item-title">新品首发</div>
+                        <div class="sift-content-item-subtitle">每日上新</div>
+                        <div class="sift-content-item-product">
+                            <div class="aui-grid">
+                                <div class="aui-row">
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_05.png')"></div>
+                                        <div class="aui-grid-label"><span class="text-price">￥199</span></div>
+                                    </div>
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_02.png')"></div>
+                                        <div class="aui-grid-label"><span class="text-price">￥199</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aui-col-xs-6 grid-border aui-padded-15">
+                        <div class="sift-content-item-title">限时购</div>
+                        <div class="sift-content-item-subtitle">爆款限时限量抢</div>
+                        <div class="sift-content-item-product">
+                            <div class="aui-grid">
+                                <div class="aui-row">
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_03.png')"></div>
+                                        <div class="aui-grid-label"><span class="text-price">￥169</span>&nbsp;<del
+                                                class="pre-price">￥189
+                                        </del>
+                                        </div>
+                                    </div>
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_04.png')"></div>
+                                        <div class="aui-grid-label"><span class="text-price">￥199</span>&nbsp;<del
+                                                class="pre-price">￥999
+                                        </del>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aui-col-xs-6 grid-border aui-padded-15">
+                        <div class="sift-content-item-title">严选榜单</div>
+                        <div class="sift-content-item-subtitle">大家都在买</div>
+                        <div class="sift-content-item-product">
+                            <div class="aui-grid">
+                                <div class="aui-row">
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_06.png')"></div>
+                                        <div class="aui-grid-label"><span class="text-price">￥199</span></div>
+                                    </div>
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_01.png')"></div>
+                                        <div class="aui-grid-label"><span class="text-price">￥199</span>&nbsp;<del
+                                                class="pre-price">￥999
+                                        </del>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aui-col-xs-6 grid-border aui-padded-15">
+                        <div class="sift-content-item-title">福利社</div>
+                        <div class="sift-content-item-subtitle">抢超值神券</div>
+                        <div class="sift-content-item-product">
+                            <div class="aui-grid">
+                                <div class="aui-row">
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_07.png')"></div>
+                                        <div class="aui-grid-label"><span class="text-price">立省￥5</span></div>
+                                    </div>
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_08.png')"></div>
+                                        <div class="aui-grid-label"><span class="text-price">立省￥40</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sift-content aui-margin-t-10">
+            <div class="aui-grid">
+                <div class="aui-row">
+                    <div class="aui-col-xs-6 grid-border aui-padded-15">
+                        <div class="sift-content-item-title">性价比之王</div>
+                        <div class="sift-content-item-subtitle">品质惊人的良心替代</div>
+                        <div class="sift-content-item-product">
+                            <div class="aui-grid">
+                                <div class="aui-row">
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_05.png')"></div>
+                                    </div>
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_02.png')"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aui-col-xs-6 grid-border aui-padded-15">
+                        <div class="sift-content-item-title">无限回购榜单</div>
+                        <div class="sift-content-item-subtitle">买了又买的超值好物</div>
+                        <div class="sift-content-item-product">
+                            <div class="aui-grid">
+                                <div class="aui-row">
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_03.png')"></div>
+                                    </div>
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_04.png')"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aui-col-xs-6 grid-border aui-padded-15">
+                        <div class="sift-content-item-title">三年王牌代表作</div>
+                        <div class="sift-content-item-subtitle">8大王牌商品线</div>
+                        <div class="sift-content-item-product">
+                            <div class="aui-grid">
+                                <div class="aui-row">
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_06.png')"></div>
+                                    </div>
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_01.png')"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aui-col-xs-6 grid-border aui-padded-15">
+                        <div class="sift-content-item-title">双料口碑爆品榜</div>
+                        <div class="sift-content-item-subtitle">高销量高好评好物</div>
+                        <div class="sift-content-item-product">
+                            <div class="aui-grid">
+                                <div class="aui-row">
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_07.png')"></div>
+                                    </div>
+                                    <div class="aui-col-xs-6">
+                                        <div class="sift-content-item-product-img"
+                                             style="background-image: url('../image/test_home_product_08.png')"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="recommend-content aui-margin-t-10">
+            <div class="recommend-content-title aui-padded-15">
+                <span class="common-bold-title">人气推荐</span>
+                <span class="common-text-more">更多 ></span>
+            </div>
+            <div class="recommend-banner" style="background-image: url(../image/test_banner_02.jpg)"></div>
+            <div class="aui-grid">
+                <div class="aui-row">
+                    <div class="aui-col-xs-4 recommend-item aui-border-r">
+                        <div class="recommend-item-image"
+                             style="background-image: url(../image/test_home_product_05.png);"></div>
+                        <div class="recommend-item-title aui-ellipsis-1">泰国制造 天然乳胶枕</div>
+                        <div class="aui-grid-label recommend-item-price">
+                            <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                        </div>
+                        <div class="recommend-item-label"><span>限时购</span><span>今日特价</span></div>
+                    </div>
+                    <div class="aui-col-xs-4 recommend-item aui-border-r">
+                        <div class="recommend-item-image"
+                             style="background-image: url(../image/test_home_product_06.png);"></div>
+                        <div class="recommend-item-title aui-ellipsis-1">泰国制造 天然乳胶枕</div>
+                        <div class="aui-grid-label recommend-item-price">
+                            <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                        </div>
+                        <div class="recommend-item-label"></div>
+                    </div>
+                    <div class="aui-col-xs-4 recommend-item">
+                        <div class="recommend-item-image"
+                             style="background-image: url(../image/test_home_product_04.png);"></div>
+                        <div class="recommend-item-title aui-ellipsis-1">泰国制造 天然乳胶枕</div>
+                        <div class="aui-grid-label recommend-item-price">
+                            <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                        </div>
+                        <div class="recommend-item-label"><span>今日特价</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="project-selection-content">
+        <div class="project-selection-title aui-padded-15">
+            <span class="common-bold-title">专题精选</span>
+            <span class="common-text-more">更多 ></span>
+        </div>
+        <div class="project-selection-scroll">
+            <div class="project-selection-item">
+                <div class="project-selection-item-image"
+                     style="background-image: url(../image/test_project_selection_image_01.jpg)"></div>
+                <div class="project-selection-item-content">
+                    <span class="project-selection-item-title aui-ellipsis-1">老顾客无限回购的好物9.9元起</span>
+                    <span class="project-selection-item-price aui-ellipsis-1">9.9元起</span>
+                    <div class="project-selection-item-description aui-ellipsis-1">无限回购榜</div>
+                </div>
+            </div>
+            <div class="project-selection-item">
+                <div class="project-selection-item-image"
+                     style="background-image: url(../image/test_project_selection_image_01.jpg)"></div>
+                <div class="project-selection-item-content">
+                    <span class="project-selection-item-title aui-ellipsis-1">老顾客无限回购的好物9.9元起</span>
+                    <span class="project-selection-item-price aui-ellipsis-1">9.9元起</span>
+                    <div class="project-selection-item-description aui-ellipsis-1">无限回购榜</div>
+                </div>
+            </div>
+            <div class="project-selection-item">
+                <div class="project-selection-item-image"
+                     style="background-image: url(../image/test_project_selection_image_01.jpg)"></div>
+                <div class="project-selection-item-content">
+                    <span class="project-selection-item-title aui-ellipsis-1">老顾客无限回购的好物9.9元起</span>
+                    <span class="project-selection-item-price aui-ellipsis-1">9.9元起</span>
+                    <div class="project-selection-item-description aui-ellipsis-1">无限回购榜</div>
+                </div>
+            </div>
+            <div class="project-selection-item">
+                <div class="project-selection-item-image"
+                     style="background-image: url(../image/test_project_selection_image_01.jpg)"></div>
+                <div class="project-selection-item-content">
+                    <span class="project-selection-item-title aui-ellipsis-1">老顾客无限回购的好物9.9元起</span>
+                    <span class="project-selection-item-price aui-ellipsis-1">9.9元起</span>
+                    <div class="project-selection-item-description aui-ellipsis-1">无限回购榜</div>
+                </div>
+            </div>
+            <div class="project-selection-item">
+                <div class="project-selection-item-image"
+                     style="background-image: url(../image/test_project_selection_image_01.jpg)"></div>
+                <div class="project-selection-item-content">
+                    <span class="project-selection-item-title aui-ellipsis-1">老顾客无限回购的好物9.9元起</span>
+                    <span class="project-selection-item-price aui-ellipsis-1">9.9元起</span>
+                    <div class="project-selection-item-description aui-ellipsis-1">无限回购榜</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="activity-content">
+        <div class="project-selection-title aui-padded-15">
+            <span class="common-bold-title">精选活动</span>
+        </div>
+        <div class="activity-item">
+            <div class="activity-item-image" style="background-image: url(../image/test_banner_05.jpg)"></div>
+            <div class="activity-item-product">
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="activity-item">
+            <div class="activity-item-image" style="background-image: url(../image/test_banner_05.jpg)"></div>
+            <div class="activity-item-product">
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="activity-item">
+            <div class="activity-item-image" style="background-image: url(../image/test_banner_05.jpg)"></div>
+            <div class="activity-item-product">
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+                <div class="activity-item-product-item">
+                    <div class="activity-item-product-item-image"
+                         style="background-image: url(../image/test_home_product_07.png)"></div>
+                    <div class="activity-item-product-title aui-ellipsis-2 aui-font-size-12">泰国制造 天然乳胶枕泰国制造 天然乳胶枕泰国制造
+                        天然乳胶枕
+                    </div>
+                    <div class="activity-item-product-price aui-ellipsis-1">
+                        <span class="text-price">￥199</span>&nbsp;<del class="pre-price">￥999</del>
+                    </div>
+                    <div class="activity-item-product-label"><span>今日特价</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script id="banner-template" type="x-dot-template">
+    {{~it:value:index}}
+    <div class="swiper-slide banner-slide banner-img" style="background-image: url(../image/test_banner_01.jpg)"
+         data-img="{{=value.picUrl}}" data-url="{{=value.targetUrl}}"
+         tapmode onclick="fnClickTarget(this, '{{=value.name}}')"></div>
+    {{~}}
+</script>
+<script id="category-list-template" type="x-dot-template">
+    {{~it:value:index}}
+    <div class="aui-col-5">
+        <img class="icon-category" src="../image/all_share_default_image_ic.png" data-img="{{=value.picUrl}}" alt=""/>
+        <div class="aui-grid-label text-category">{{=value.text}}</div>
+    </div>
+    {{~}}
+</script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.js"></script>
+<script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function () {
+        initData();
+    };
+
+
+    function initView() {
+
+    }
+
+    function initData() {
+        initBannerData();
+        initCategoryList();
+    }
+
+    function fnClickTarget(context, title) {
+        $app.openCommonWin($api.attr(context, 'data-url'), title);
+    }
+
+    function initBannerData() {
+        $http.GET('/api/shopping/home/banner', null, function (ret) {
+            if (ret.data.length !== 0) {
+                $logger.print(ret.data);
+                // var bannerTempl = doT.compile($api.text($api.dom('#banner-template')));
+                // $api.html($api.dom('.swiper-wrapper'), bannerTempl(ret.data));
+                $doT.html('.swiper-wrapper', '#banner-template', ret.data);
+                $app.imageCache('.banner-img');
+
+                var mySwiper = new Swiper('.swiper-container', {
+                    autoplay: true,
+                    slidesPerView: 'auto',
+                    centeredSlides: true,
+                    spaceBetween: 18,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true
+                    }
+                })
+
+            }
+        })
+    }
+
+    function initCategoryList() {
+        var localData = $api.getStorage('cache_categoryList');
+        if (localData) {
+            $doT.html('#category-list-content', '#category-list-template', localData);
+            $app.imageCache('.icon-category');
+        }
+
+        $http.GET('/api/shopping/category/list', null, function (ret) {
+            if(JSON.stringify(localData) !== JSON.stringify(ret.data)) {
+                $doT.html('#category-list-content', '#category-list-template', ret.data);
+                $app.imageCache('.icon-category');
+                $api.setStorage('cache_categoryList', ret.data);
+            }
+        })
+    }
+
+    function fnOpenDetail() {
+        $app.openWin('product_detail_win');
+    }
+
+
+</script>
+
+</html>
